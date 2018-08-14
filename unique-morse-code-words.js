@@ -29,42 +29,59 @@ There are 2 different transformations, '--...-.' and '--...--.'.
  */
 
 let uniqueMorseRepresentations = function(words) {
-  const morzeTable = {
-    'a': '.-', 
-    'b': '-...',
-    'c': '-.-.',
-    'd': '-..',
-    'e': '.',
-    'f': '..-.',
-    'g': '--.',
-    'h': '....',
-    'i': '..',
-    'j': '.---',
-    'k': '-.-',
-    'l': '.-..',
-    'm': '--',
-    'n': '-.',
-    'o': '---',
-    'p': '.--.',
-    'q': '--.-',
-    'r': '.-.',
-    's': '...',
-    't': '-',
-    'u': '..-',
-    'v': '...-',
-    'w': '.--',
-    'x': '-..-',
-    'y': '-.--',
-    'z': '--..'
-  };
+  const morseCodes = [".-","-...","-.-.","-..",".","..-.","--.","....","..",".---","-.-",".-..","--","-.","---",".--.","--.-",".-.","...","-","..-","...-",".--","-..-","-.--","--.."];
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
   let wordsCodes = [];
-  words.forEach(word => {
+  for (let i = 0; i < words.length; i++) {
+    const word = words[i];
     let currWordCode = '';
-    word.split('').forEach(letter => {
-      currWordCode += morzeTable[letter];
-    });
+    for (let j = 0; j < word.length; j++) {
+      const letter = word[j];
+      currWordCode += morseCodes[alphabet.indexOf(letter)];
+    }
     wordsCodes.push(currWordCode);
-  });
+  }
   const uniqueCodes = wordsCodes.filter((elem, i, arr) => arr.indexOf(elem) === i);
   return uniqueCodes.length;
 };
+
+// let uniqueMorseRepresentations = function(words) {
+//   const morzeTable = {
+//     'a': '.-', 
+//     'b': '-...',
+//     'c': '-.-.',
+//     'd': '-..',
+//     'e': '.',
+//     'f': '..-.',
+//     'g': '--.',
+//     'h': '....',
+//     'i': '..',
+//     'j': '.---',
+//     'k': '-.-',
+//     'l': '.-..',
+//     'm': '--',
+//     'n': '-.',
+//     'o': '---',
+//     'p': '.--.',
+//     'q': '--.-',
+//     'r': '.-.',
+//     's': '...',
+//     't': '-',
+//     'u': '..-',
+//     'v': '...-',
+//     'w': '.--',
+//     'x': '-..-',
+//     'y': '-.--',
+//     'z': '--..'
+//   };
+//   let wordsCodes = [];
+//   words.forEach(word => {
+//     let currWordCode = '';
+//     word.split('').forEach(letter => {
+//       currWordCode += morzeTable[letter];
+//     });
+//     wordsCodes.push(currWordCode);
+//   });
+//   const uniqueCodes = wordsCodes.filter((elem, i, arr) => arr.indexOf(elem) === i);
+//   return uniqueCodes.length;
+// };
