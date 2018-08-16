@@ -24,9 +24,25 @@ Output: [1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 22]
  */
 
 let selfDividingNumbers = function(left, right) {
-  for (let num = left; num < right; num++) {
-    console.log(num);
+  let selfDividingNumbersArr = [];
+  for (let num = left; num <= right; num++) {
+    if(num.toString().includes('0')) {
+      continue;
+    }
+    if(isSelfDividedNum(num)) {
+      selfDividingNumbersArr.push(num);
+    }
   }
+  return selfDividingNumbersArr;
 };
 
-selfDividingNumbers(1, 22);
+let isSelfDividedNum = function(num) {
+  let numStr = num.toString();
+  let selfDivides = 0;
+  for (let i = 0; i < numStr.length; i++) {
+    if((num % +numStr[i]) === 0) {
+      selfDivides += 1;
+    }
+  }
+  return selfDivides === numStr.length;
+}
