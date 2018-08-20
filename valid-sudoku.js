@@ -35,43 +35,50 @@ Explanation: Since there are two 8's in the top left 3x3 sub-box, it is invalid.
 
 let isValidSudoku = function(board) {
   const boardSize = 9;
-  let box1 = [];
-  let box2 = [];
-  let box3 = [];
-  for (let i = 0; i < boardSize; i++) { 
-    let currRowElements = [];
-    let currColumnElements = [];
-    if(i % 3 === 0) {
-      box1 = [];
-      box2 = [];
-      box3 = [];
+  let leftSquareItems = [];
+  let middleSquareItems = [];
+  let rightSquareItems = [];
+  for (let x = 0; x < boardSize; x++) { 
+    let currRowItems = [];
+    let currColumnItems = [];
+    if(x % 3 === 0) {
+      leftSquareItems = [];
+      middleSquareItems = [];
+      rightSquareItems = [];
 		}
-    for (let j = 0; j < boardSize; j++) {
-      // Looping and checking through boxes (3x3) and rows
-      const horizontalCell = board[i][j];
-      if (horizontalCell === '.') continue;
-      if (currRowElements.includes(horizontalCell)) {
-        return false;
+    for (let y = 0; y < boardSize; y++) {
+      // Looping and checking through squares (3x3) and rows
+      const horizontalItem = board[x][y];
+      if (horizontalItem === '.') continue;
+      if (currRowItems.includes(horizontalItem)) {
+        return false
+      };
+      currRowItems.push(horizontalItem);
+      if (y < 3) {
+        if(leftSquareItems.includes(horizontalItem)) {
+          return false
+        };
+        leftSquareItems.push(horizontalItem);
+      } else if (y > 5) {
+        if(rightSquareItems.includes(horizontalItem)) {
+          return false
+        };
+        rightSquareItems.push(horizontalItem);
       } else {
-        currRowElements.push(horizontalCell);
-      }
-      if(j < 3) {
-        if(box1.includes(horizontalCell)) {return false} else {box1.push(horizontalCell)};
-      } else if (j > 5) {
-        if(box3.includes(horizontalCell)) {return false} else {box3.push(horizontalCell)};
-      } else {
-        if(box2.includes(horizontalCell)) {return false} else {box2.push(horizontalCell)};
+        if(middleSquareItems.includes(horizontalItem)) {
+          return false
+        };
+        middleSquareItems.push(horizontalItem);
       }
     }
-    for (let j = 0; j < boardSize; j++) {
+    for (let y = 0; y < boardSize; y++) {
       // Looping and checking through columns
-      const verticalCell = board[j][i];
-      if (verticalCell === '.') continue;
-      if (currColumnElements.includes(verticalCell)) {
+      const verticalItem = board[y][x];
+      if (verticalItem === '.') continue;
+      if (currColumnItems.includes(verticalItem)) {
         return false;
-      } else {
-        currColumnElements.push(verticalCell);
       }
+      currColumnItems.push(verticalItem);
     }
   }
   return true;
