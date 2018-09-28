@@ -28,30 +28,24 @@ Output: false
  */
 
 let isValid = function(s) {
-  if(s === '') {
-    return true;
-  }
-  if(s.length % 2 !== 0) {
-    return false;
-  }
+  if (s === '') return true;
+  if (s.length % 2) return false;
   let stack = [];
-  let brackets = {
+  const bracesMap = {
     '(': ')',
     '[': ']',
     '{': '}'
   };
-  for(let i = 0; i < s.length; i++) {
-    if(s[i] in brackets) {
-      stack.push(s[i]);
+  for (let i = 0; i < s.length; i++) {
+    const brace = s[i];
+    const isOpeningBracket = bracesMap.hasOwnProperty(brace);
+    if (isOpeningBracket) {
+      const appropriateClosingBrace = bracesMap[brace];
+      stack.push(appropriateClosingBrace);
     } else {
-      let isCorrectClosingBracket = brackets[stack.pop()] === s[i];
-      if(!isCorrectClosingBracket) {
-        return false;
-      }
+      const isAppropriateClosingBrace = brace === stack.pop();
+      if (!isAppropriateClosingBrace) return false;
     }
   }
-  if(stack.length !== 0) {
-    return false;
-  }
-  return true;
+  return stack.length === 0;
 };
