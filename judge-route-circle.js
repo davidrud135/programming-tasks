@@ -1,23 +1,20 @@
 /*
-Task Link: https://leetcode.com/problems/judge-route-circle/description/
+Task Link: https://leetcode.com/problems/robot-return-to-origin/
 
 Difficulty: Easy
 
 Description:
+There is a robot starting at position (0, 0), the origin, on a 2D plane.
+Given a sequence of its moves, judge if this robot ends up at (0, 0) after it completes its moves.
+The move sequence is represented by a string, and the character moves[i] represents its ith move.
+Valid moves are R (right), L (left), U (up), and D (down).
+If the robot returns to the origin after it finishes all of its moves, return true. Otherwise, return false.
 
-Initially, there is a Robot at position (0, 0). 
-Given a sequence of its moves, judge if this robot makes a circle, which means it moves back to the original place.
-The move sequence is represented by a string. And each move is represent by a character. 
-The valid robot moves are R (Right), L (Left), U (Up) and D (down). 
-The output should be true or false representing whether the robot makes a circle.
-
-Example 1:
+Example:
 Input: "UD"
-Output: true
-
-Example 2:
-Input: "LL"
-Output: false
+Output: true 
+Explanation: The robot moves up once, and then down once.
+All moves have the same magnitude, so it ended up at the origin where it started. Therefore, we return true.
 */
 
 /**
@@ -25,21 +22,18 @@ Output: false
  * @return {boolean}
  */
 
-let judgeCircle = function(moves) {
-  if(moves.length % 2 !== 0) {
-    return false;
+const judgeCircle = function(moves) {
+  const movesAmount = moves.length;
+  if (movesAmount % 2 !== 0) return false;
+  let x = 0;
+  let y = 0;
+  for (let i = 0; i < movesAmount; i++) {
+    switch (moves[i]) {
+      case 'U': y += 1; break;
+      case 'D': y -= 1; break;
+      case 'R': x += 1; break;
+      case 'L': x -= 1;
+    }
   }
-  let movesCounter = {
-    'U': 0,
-    'D': 0, 
-    'R': 0,
-    'L': 0
-  };
-  moves.split('').forEach(move => movesCounter[move] += 1);
-  const xEquality = movesCounter['R'] === movesCounter['L'];
-  const yEquality = movesCounter['U'] === movesCounter['D'];
-  if(xEquality && yEquality) {
-    return true;
-  }
-  return false;
+  return !x && !y;
 };
