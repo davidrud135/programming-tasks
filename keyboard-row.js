@@ -17,7 +17,6 @@ Output: ["Alaska", "Dad"]
  * @return {string[]}
  */
 
-let findWords = function(words) {
-  const rowsRegExp = /\b[qwertyuiop]+\b|\b[asdfghjkl]+\b|\b[zxcvbnm]+\b/gi;
-  return words.filter(word => word.match(rowsRegExp));
+const findWords = function(words) {
+  return words.filter(word => /^([qwertyuiop]+|[asdfghjkl]+|[zxcvbnm]+)$/gi.test(word));
 };
