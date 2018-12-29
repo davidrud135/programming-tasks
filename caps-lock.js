@@ -17,10 +17,9 @@ Output: 'Caps lock'
  * @return {string}
  */
 
-let fixCapsLockString = function(str) {
-  const fixedCapsLockStrsArr = str.split('').map(char => {
-    const isUpperCase = char === char.toUpperCase();
-    return (isUpperCase) ? char.toLowerCase() : char.toUpperCase();
-  });
-  return fixedCapsLockStrsArr.join('');
-}
+const fixCapsLockString = function(str) {
+  return str
+    .split('')
+    .map(char => (char === char.toUpperCase()) ? char.toLowerCase() : char.toUpperCase())
+    .join('');
+};
